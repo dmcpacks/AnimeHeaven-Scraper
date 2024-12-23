@@ -61,6 +61,8 @@ async function Info(id) {
                 episodes = text;  // First element should be episodes
                 if(episodes.includes("+")) {
                     ongoing = true;
+                } else {
+                    ongoing = false;
                 }
             } else if (index === 1) {
                 year = text;      // Second element should be the year
@@ -80,19 +82,22 @@ async function Info(id) {
         //Extract next episode
         if(ongoing) {
             nextEp = $('.info2 .inline.c2').text().trim();
+        } else {
+            ongoing = false;
+            nextEp = "Season ended"
         }
 
         // Combine data into an object
         const data = {
             id: id || null,
-            banner: banner || null,
-            poster: poster || null,
-            title: name || null,
-            desc: desc || null,
+            banner: banner || "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+            poster: poster || "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+            title: name || "No title",
+            desc: desc || "No description",
             episodes: episodes || null,
             year: year || null,
             score: score || null,
-            ongoing: ongoing || null,
+            ongoing: ongoing,
             nextEp: nextEp || null,
             tags: tags.length > 0 ? tags : null, // Include tags if they exist
             episodeIds: episodesID.length > 0 ? episodesID.reverse() : null,
